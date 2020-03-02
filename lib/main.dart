@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netflikss/welcome_screen.dart';
+import 'package:netflikss/video_player.dart';
 
 void main() => runApp(MyApp());
 
@@ -50,7 +50,7 @@ class _SignUpFormState extends State<SignUpForm>
   Widget build(BuildContext context) {
     void _showWelcomeScreen() {
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => WelcomeScreen()));
+          .push(MaterialPageRoute(builder: (context) => VideoPlayerApp()));
     }
 
     return Column(
@@ -93,11 +93,9 @@ class SignUpFormBody extends StatefulWidget {
 class _SignUpFormBodyState extends State<SignUpFormBody> {
   static const EdgeInsets padding = EdgeInsets.all(8);
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController websiteController = TextEditingController();
 
   List<TextEditingController> get controllers =>
-      [emailController, phoneController, websiteController];
+      [emailController];
 
   @override
   void initState() {
@@ -133,14 +131,6 @@ class _SignUpFormBodyState extends State<SignUpFormBody> {
           SignUpField(
             hintText: 'E-mail address',
             controller: emailController,
-          ),
-          SignUpField(
-            hintText: 'Phone number',
-            controller: phoneController,
-          ),
-          SignUpField(
-            hintText: 'Website',
-            controller: websiteController,
           ),
         ],
       ),
