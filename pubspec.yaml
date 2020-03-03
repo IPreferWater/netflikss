@@ -19,6 +19,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  video_player:
+  graphql: 3.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -28,8 +30,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  video_player:
-  graphql_flutter: 3.0.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

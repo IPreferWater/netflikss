@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graphql/client.dart';
 import 'package:netflikss/video_player.dart';
 
 void main() => runApp(MyApp());
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
 }
 
 class SignUpScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -53,6 +55,34 @@ class _SignUpFormState extends State<SignUpForm>
           .push(MaterialPageRoute(builder: (context) => VideoPlayerApp()));
     }
 
+    Future _testGraphQl() async {
+      GraphQLClient client = GraphQLClient(
+        cache: InMemoryCache(),
+        link: HttpLink(
+          uri: 'https://api.graph.cool/simple/v1/ciyz901en4j590185wkmexyex',
+        ),
+      );
+
+      print("client should be ok");
+
+      QueryResult result = await client.query(
+        QueryOptions(
+          //document: queryMutation.getAll(),
+            documentNode: gql(""" {
+                                allUsers {
+                                  name
+                                }
+                              }"""
+            )),
+      );
+      if (result.hasException) {
+        print(result.exception.toString());
+      }else{
+        print(result.data);
+      }
+
+    }
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -70,9 +100,10 @@ class _SignUpFormState extends State<SignUpForm>
           child: FlatButton(
             color: Colors.blue,
             textColor: Colors.white,
-            onPressed: _formCompleted ? _showWelcomeScreen : null,
+            //onPressed: _formCompleted ? _showWelcomeScreen : null,
+            onPressed: _testGraphQl,
             child: Text('Sign up'),
-          ),
+          )
         ),
       ],
     );
