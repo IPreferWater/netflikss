@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
+import 'package:netflikss/model/Serie.dart';
 
 class HomePage extends StatefulWidget{
 
@@ -35,7 +38,7 @@ class _HomePageState extends State<HomePage> {
     GraphQLClient client = GraphQLClient(
       cache: InMemoryCache(),
       link: HttpLink(
-        uri: 'localhost:8080',
+        uri: 'http://localhost:7171/query',
       ),
     );
 
@@ -43,24 +46,32 @@ class _HomePageState extends State<HomePage> {
 
     QueryResult result = await client.query(
       QueryOptions(
-          documentNode: gql("""
-           {
-           series{
-             label,
-             seasons{
-               number,
-               episodes{
-                 number
-               }
-             }
-            }
-           }"""
+          documentNode: gql(""" 
+               {
+               series{
+                label,
+                seasons{
+                  number,
+                  episodes{
+                  number
+                  }
+                }
+              }
+              }
+                      """
           )),
+
     );
     if (result.hasException) {
-      print(result.exception.toString());
-    }else{
+      print(result.exception);
       print(result.data);
+      //List<Serie> series = Serie.fromJson(result.data)
+
+      print("error ..°." + result.exception.toString());
+    }else{
+      var tagObjsJson = jsonDecode(result.data)['series'] as List;
+      List<Serie> tagObjs = tagObjsJson.map((tagJson) => Serie.fromJson(tagJson)).toList();
+      print(tagObjs);
     }
 
   }
