@@ -49,13 +49,7 @@ class _HomePageState extends State<HomePage> {
           documentNode: gql(""" 
                {
                series{
-                label,
-                seasons{
-                  number,
-                  episodes{
-                  number
-                  }
-                }
+                label
               }
               }
                       """
@@ -64,14 +58,10 @@ class _HomePageState extends State<HomePage> {
     );
     if (result.hasException) {
       print(result.exception);
-      print(result.data);
-      //List<Serie> series = Serie.fromJson(result.data)
-
-      print("error ..°." + result.exception.toString());
     }else{
-      var tagObjsJson = jsonDecode(result.data)['series'] as List;
-      List<Serie> tagObjs = tagObjsJson.map((tagJson) => Serie.fromJson(tagJson)).toList();
-      print(tagObjs);
+      var seriesJson = result.data["series"];
+      var series = seriesJson.map((title) => Serie.fromJson(title));
+      series.forEach((element) => print(element.toString()));
     }
 
   }
