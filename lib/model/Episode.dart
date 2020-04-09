@@ -16,4 +16,9 @@ class Episode {
         'fileName': fileName,
         'number': number
       };
+
+  @override
+  String toString() {
+    return ' Episode { label : $label, filename : $fileName, number : $number }';
+  }
 }

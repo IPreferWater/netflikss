@@ -57,7 +57,13 @@ class _HomePageState extends State<HomePage> {
           documentNode: gql(""" 
                {
                series{
-                label
+                label,
+                seasons{
+                    number,
+                    episodes{
+                    number
+                    }
+                  }
               }
               }
                       """
@@ -69,6 +75,7 @@ class _HomePageState extends State<HomePage> {
     }else{
       var seriesJson = result.data["series"];
       var seriesFromGraph = seriesJson.map((title) => Serie.fromJson(title)).toList().cast<Serie>();
+      print(seriesFromGraph);
       setState(() { series = seriesFromGraph; });
     }
   }

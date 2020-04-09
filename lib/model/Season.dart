@@ -6,15 +6,26 @@ class Season {
   String label;
   String directoryName;
   int number;
-  List<Episode> episodes = <Episode>[];
+  List<Episode> episodes;
 
-  Season(this.label, this.directoryName, this.number, this.episodes);
+  Season({this.label, this.directoryName, this.number, this.episodes});
 
-  Season.fromJson(Map<String, dynamic> json)
-      : label = json['label'],
-        directoryName = json['directoryName'],
-        number = json['number'];
-       // episodes = json['episodes'].map((mapping) => Episode.fromJson(json)).toList();
+  static Season fromJson(Map<String, dynamic> json) {
+
+    var episodeJson = json['episodes'];
+
+    List<Episode> episodes;
+    if(episodeJson != null){
+      episodes = episodeJson.map((episode) => Episode.fromJson(episode)).toList().cast<Episode>();
+    }else{
+      episodes=[];
+    }
+    return Season(
+        label: json['label'],
+        directoryName: json['directoryName'],
+        number: json['number'],
+        episodes: episodes);
+  }
 
   Map<String, dynamic> toJson() =>
       {
@@ -23,4 +34,9 @@ class Season {
         'number': number,
         'episodes': episodes
       };
+
+  @override
+  String toString() {
+    return ' Season { label : $label, directoryName : $directoryName, episode : $episodes }';
+  }
 }

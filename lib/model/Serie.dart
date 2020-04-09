@@ -3,15 +3,29 @@ import 'package:netflikss/model/Season.dart';
 class Serie {
    String label;
    String directoryName;
-   List<Season> seasons = <Season>[];
+   List<Season> seasons;
 
+  Serie({
+      this.label,
+      this.directoryName,
+      this.seasons});
 
-  Serie(this.label, this.directoryName, this.seasons);
+   static Serie fromJson(Map<String, dynamic> json) {
 
-   Serie.fromJson(Map<String, dynamic> json)
-       : label = json['label'],
-         directoryName = json['directoryName'];
-        // seasons = json['episodes'].map((mapping) => Season.fromJson(json)).toList();
+    var seasonsJson = json['seasons'];
+    List<Season> seasons;
+    if(seasonsJson != null){
+      seasons = seasonsJson.map((season) => Season.fromJson(season)).toList().cast<Season>();
+    }else{
+
+      seasons=[];
+    }
+
+     return Serie(
+         label: json['label'],
+         directoryName: json['directoryName'],
+         seasons: seasons);
+   }
 
    Map<String, dynamic> toJson() =>
        {
@@ -22,6 +36,6 @@ class Serie {
 
    @override
    String toString() {
-     return ' Serie { label : $label, directoryName : $directoryName }';
+     return ' Serie { label : $label, directoryName : $directoryName, seasons : $seasons }';
    }
 }
