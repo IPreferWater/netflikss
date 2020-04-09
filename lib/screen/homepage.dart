@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:netflikss/model/Serie.dart';
+import 'package:netflikss/widget/card_serie.dart';
 
 class HomePage extends StatefulWidget{
 
@@ -11,9 +10,12 @@ class HomePage extends StatefulWidget{
 }
 class _HomePageState extends State<HomePage> {
 
+  List<Serie> series;
+
   @override
   void initState(){
     super.initState();
+    series = [];
     _testGraphQl();
   }
 
@@ -31,7 +33,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _creationMenu() {
-    return Text("ddddd");
+    return GridView.count(
+      crossAxisCount: 2,
+       children: series.map((serie) {
+
+          return Center(
+            child: CardSerie(serie: serie),
+          );
+       }).toList(),
+    );
+
   }
 
   Future _testGraphQl() async {
@@ -41,9 +52,6 @@ class _HomePageState extends State<HomePage> {
         uri: 'http://localhost:7171/query',
       ),
     );
-
-    print("client should be ok");
-
     QueryResult result = await client.query(
       QueryOptions(
           documentNode: gql(""" 
@@ -60,9 +68,8 @@ class _HomePageState extends State<HomePage> {
       print(result.exception);
     }else{
       var seriesJson = result.data["series"];
-      var series = seriesJson.map((title) => Serie.fromJson(title));
-      series.forEach((element) => print(element.toString()));
+      var seriesFromGraph = seriesJson.map((title) => Serie.fromJson(title)).toList().cast<Serie>();
+      setState(() { series = seriesFromGraph; });
     }
-
   }
 }
