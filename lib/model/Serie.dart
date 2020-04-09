@@ -10,8 +10,8 @@ class Serie {
 
    Serie.fromJson(Map<String, dynamic> json)
        : label = json['label'],
-         directoryName = json['directoryName'],
-         seasons = json['episodes'].map((mapping) => Season.fromJson(json)).toList();
+         directoryName = json['directoryName'];
+        // seasons = json['episodes'].map((mapping) => Season.fromJson(json)).toList();
 
    Map<String, dynamic> toJson() =>
        {
@@ -19,4 +19,9 @@ class Serie {
          'directoryName': directoryName,
          'seasons': seasons
        };
+
+   @override
+   String toString() {
+     return ' Serie { label : $label, directoryName : $directoryName }';
+   }
 }

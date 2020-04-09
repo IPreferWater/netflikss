@@ -13,8 +13,8 @@ class Season {
   Season.fromJson(Map<String, dynamic> json)
       : label = json['label'],
         directoryName = json['directoryName'],
-        number = json['number'],
-        episodes = json['episodes'].map((mapping) => Episode.fromJson(json)).toList();
+        number = json['number'];
+       // episodes = json['episodes'].map((mapping) => Episode.fromJson(json)).toList();
 
   Map<String, dynamic> toJson() =>
       {
