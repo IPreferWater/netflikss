@@ -15,9 +15,7 @@ class SerieScreen extends StatefulWidget{
 }
 class _SerieScreenState extends State<SerieScreen> {
 
-
   Season seasonSelected;
-  Widget tempWidget;
 
   @override
   void initState(){
@@ -57,23 +55,14 @@ class _SerieScreenState extends State<SerieScreen> {
                   }).toList(),
                 )
             )
-
-            /*    GridView.count(
-                crossAxisCount: 2,
-            children: seasonSelected.episodes.map((episode) {
-
-            return Center(
-            child: Text(episode.fileName),
-            );
-            }).toList(),
-            )*/
       ],
     );
   }
 
   navigateToVideoPlayer(String url){
     print("we should read $url");
-    /*Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => VideoPlayerApp()));*/
+    print("${widget.serie.directoryName}/${seasonSelected.directoryName}/$url");
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => VideoPlayerScreen(url: url)));
   }
 }

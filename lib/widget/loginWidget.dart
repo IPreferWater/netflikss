@@ -23,8 +23,8 @@ class _SignUpFormState extends State<SignUpForm>
   @override
   Widget build(BuildContext context) {
     void _showWelcomeScreen() {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => VideoPlayerApp()));
+     /* Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => VideoPlayerApp()));*/
     }
 
     return Column(
