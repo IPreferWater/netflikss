@@ -5,9 +5,12 @@ import 'package:netflikss/model/Serie.dart';
 class CardSerie extends StatefulWidget{
 
   final Serie serie;
+  final void Function(Serie serie) onTap;
+
 
   CardSerie({
     @required this.serie,
+    @required this.onTap
   });
 
   _CardState createState() => _CardState();
@@ -27,6 +30,7 @@ class _CardState extends State<CardSerie> {
       child: InkWell(
         onTap: () {
           print("read serie ${serie.label}");
+          widget.onTap(widget.serie);
         },
         child: Card(
           child: Column(

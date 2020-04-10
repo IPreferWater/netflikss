@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:netflikss/model/Serie.dart';
+import 'package:netflikss/screen/serie_screen.dart';
 import 'package:netflikss/widget/card_serie.dart';
 
 class HomePage extends StatefulWidget{
@@ -38,7 +39,7 @@ class _HomePageState extends State<HomePage> {
        children: series.map((serie) {
 
           return Center(
-            child: CardSerie(serie: serie),
+            child: CardSerie(serie: serie, onTap: showDialogEditItem),
           );
        }).toList(),
     );
@@ -56,15 +57,19 @@ class _HomePageState extends State<HomePage> {
       QueryOptions(
           documentNode: gql(""" 
                {
-               series{
-                label,
-                seasons{
+                	series{
+                  label,
+                  seasons{
                     number,
+                    label,
+                    directoryName
                     episodes{
-                    number
+                      label,
+                    number,
+                     fileName 
                     }
                   }
-              }
+                }
               }
                       """
           )),
@@ -78,5 +83,12 @@ class _HomePageState extends State<HomePage> {
       print(seriesFromGraph);
       setState(() { series = seriesFromGraph; });
     }
+  }
+
+  showDialogEditItem(Serie serie){
+    print("naviguate");
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => SerieScreen(serie: serie))
+    );
   }
 }
