@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:netflikss/model/Season.dart';
 import 'package:netflikss/model/Serie.dart';
+import 'package:netflikss/video_player.dart';
+import 'package:netflikss/widget/episode_card.dart';
 
 class SerieScreen extends StatefulWidget{
 
@@ -50,7 +52,7 @@ class _SerieScreenState extends State<SerieScreen> {
                   children: seasonSelected.episodes.map((episode) {
 
                     return Center(
-                      child: Text(episode.fileName),
+                      child: EpisodeCard(episode: episode, onTap: navigateToVideoPlayer)
                     );
                   }).toList(),
                 )
@@ -67,5 +69,11 @@ class _SerieScreenState extends State<SerieScreen> {
             )*/
       ],
     );
+  }
+
+  navigateToVideoPlayer(String url){
+    print("we should read $url");
+    /*Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => VideoPlayerApp()));*/
   }
 }
