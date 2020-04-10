@@ -37,6 +37,6 @@ class Season {
 
   @override
   String toString() {
-    return ' Season { label : $label, directoryName : $directoryName, episode : $episodes }';
+    return ' Season { number : $number, label : $label, directoryName : $directoryName, episode : $episodes }';
   }
 }
