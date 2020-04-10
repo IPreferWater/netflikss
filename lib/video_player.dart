@@ -40,8 +40,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     _controller = VideoPlayerController.network(
       //'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
       //'http://localhost:8080/1080p.mp4'
-      //'http://localhost:7171/${widget.url}'
-        'http://localhost:7171/1080p.mp4'
+      'http://localhost:7171/${widget.url}'
+        //'http://localhost:7171/1080p.mp4'
     );
 
     // Initialize the controller and store the Future for later use.

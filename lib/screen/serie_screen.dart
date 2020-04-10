@@ -60,9 +60,10 @@ class _SerieScreenState extends State<SerieScreen> {
   }
 
   navigateToVideoPlayer(String url){
-    print("we should read $url");
-    print("${widget.serie.directoryName}/${seasonSelected.directoryName}/$url");
+    String path = "${widget.serie.directoryName}/${seasonSelected.directoryName}/$url";
+    print(path);
+
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => VideoPlayerScreen(url: url)));
+        .push(MaterialPageRoute(builder: (context) => VideoPlayerScreen(url: path)));
   }
 }
