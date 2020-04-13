@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:netflikss/model/Serie.dart';
+import 'package:netflikss/screen/admin_screen.dart';
 import 'package:netflikss/screen/serie_screen.dart';
 import 'package:netflikss/widget/card_serie.dart';
 
@@ -27,6 +28,13 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text('Items'),
           actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => AdminScreen()));
+              },
+            )
           ],
         ),
         body: _creationMenu(),
@@ -43,7 +51,6 @@ class _HomePageState extends State<HomePage> {
           );
        }).toList(),
     );
-
   }
 
   Future _testGraphQl() async {
