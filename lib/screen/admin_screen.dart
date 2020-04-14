@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:netflikss/model/Configuration.dart';
-import 'package:http/http.dart' as http;
+import 'package:netflikss/widget/stock_path_picker.dart';
 
 class AdminScreen extends StatefulWidget{
 
@@ -13,12 +10,13 @@ class AdminScreen extends StatefulWidget{
 }
 class _AdminScreenState extends State<AdminScreen> {
 
-  Configuration configuration;
+  //Configuration configuration;
+ // String stockPath;
 
   @override
   void initState(){
     super.initState();
-    fetchAlbum();
+    //fetchAlbum();
   }
 
   @override
@@ -36,28 +34,23 @@ class _AdminScreenState extends State<AdminScreen> {
 
   Widget _creationMenu() {
 
-    if(configuration==null){
-      return Text("error api");
-    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
-            child: Text(configuration.stockPath.isNotEmpty
-                ? configuration.stockPath : "not set yet" )
+            child: StockPathPicker()
         )
       ],
     );
   }
 
-   fetchAlbum() async {
+   /*fetchAlbum() async {
     final response = await http.get('http://localhost:7171/stockpath');
-    print("fetcgh");
     if (response.statusCode == 200) {
-      var jsonMap = json.decode(response.body);
-      setState(() { configuration = Configuration.fromJson(jsonMap); });
+      /*var jsonMap = json.decode(response.body);*/
+      setState(() { stockPath = response.body; });
 
-      print(configuration);
+      print(response.body);
     }
-  }
+  }*/
 }
