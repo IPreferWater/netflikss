@@ -36,18 +36,30 @@ class _StockPathPickerState extends State<StockPathPicker> {
         ),
         Container(
             height: MediaQuery.of(context).size.height * 0.1,
-            child: FlatButton(
-              onPressed: () {
-                if (stockPath.isEmpty) {
-                  return;
-                }
-                int lastIndexSlash = stockPath.lastIndexOf('/');
-                stockPath = stockPath.substring(0, lastIndexSlash);
-                getDirectoriesList();
-              },
-              child: Text(
-                "go back",
-              ),
+            child: Row(
+              children: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    if (stockPath.isEmpty) {
+                      return;
+                    }
+                    int lastIndexSlash = stockPath.lastIndexOf('/');
+                    stockPath = stockPath.substring(0, lastIndexSlash);
+                    getDirectoriesList();
+                  },
+                  child: Text(
+                    "go back",
+                  ),
+                ),
+                FlatButton(
+                  onPressed: () {
+                    updateStockPath();
+                  },
+                  child: Text(
+                    "select",
+                  ),
+                ),
+              ],
             )
         ),
         Container(
@@ -93,6 +105,18 @@ class _StockPathPickerState extends State<StockPathPicker> {
       var directoriesMapped = jsonMap.map((j) => j).toList().cast<String>();
 
       setState(() { directories = directoriesMapped; });
+    }
+  }
+
+  updateStockPath() async {
+    print("$stockPath is selected");
+    final response = await http.post(
+        'http://localhost:7171/stockpath',
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({"stockPath" : stockPath}));
+
+    if (response.statusCode == 200) {
+      print("ok");
     }
   }
 }
