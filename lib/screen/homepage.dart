@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:netflikss/model/Serie.dart';
-import 'package:netflikss/screen/admin_screen.dart';
 import 'package:netflikss/screen/serie_screen.dart';
 import 'package:netflikss/widget/card_serie.dart';
+import 'package:netflikss/widget/main_scaffold.dart';
 
 class HomePage extends StatefulWidget{
 
@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget{
 class _HomePageState extends State<HomePage> {
 
   List<Serie> series;
-
+  
   @override
   void initState(){
     super.initState();
@@ -24,21 +24,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return
-      Scaffold(
-        appBar: AppBar(
-          title: Text('Items'),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.settings),
-              onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => AdminScreen()));
-              },
-            )
-          ],
-        ),
-        body: _creationMenu(),
-      );
+        MainScaffold(
+          body: _creationMenu(),
+        );
   }
 
   Widget _creationMenu() {
