@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget{
 class _HomePageState extends State<HomePage> {
 
   List<Serie> series;
-  
+
   @override
   void initState(){
     super.initState();
@@ -25,17 +25,17 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return
         MainScaffold(
-          body: _creationMenu(),
+          body: _homePageBody(),
         );
   }
 
-  Widget _creationMenu() {
+  Widget _homePageBody() {
     return GridView.count(
       crossAxisCount: 2,
        children: series.map((serie) {
 
           return Center(
-            child: CardSerie(serie: serie, onTap: showDialogEditItem),
+            child: CardSerie(serie: serie, onTap: navigateToSerieScreen),
           );
        }).toList(),
     );
@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  showDialogEditItem(Serie serie){
+  navigateToSerieScreen(Serie serie){
     print("naviguate");
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => SerieScreen(serie: serie))
