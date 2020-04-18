@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
-import 'package:netflikss/video_player.dart';
+import 'package:netflikss/screen/video_screen.dart';
 
 class SignUpForm extends StatefulWidget {
   @override

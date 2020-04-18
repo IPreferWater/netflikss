@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
     }else{
       print(result.data);
       var netflikss = result.data["netflikss"];
-      
+
       //get series
       var seriesJson = netflikss["series"];
       var seriesFromGraph = seriesJson.map((serie) => Serie.fromJson(serie)).toList().cast<Serie>();

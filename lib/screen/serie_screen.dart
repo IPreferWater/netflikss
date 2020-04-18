@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:netflikss/model/Season.dart';
 import 'package:netflikss/model/Serie.dart';
-import 'package:netflikss/video_player.dart';
+import 'package:netflikss/screen/video_screen.dart';
 import 'package:netflikss/widget/episode_card.dart';
 
 class SerieScreen extends StatefulWidget{
