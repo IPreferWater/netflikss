@@ -3,11 +3,13 @@ import 'package:netflikss/model/Season.dart';
 class Serie {
    String label;
    String directoryName;
+   String stockPath;
    List<Season> seasons;
 
   Serie({
       this.label,
       this.directoryName,
+      this.stockPath,
       this.seasons});
 
    static Serie fromJson(Map<String, dynamic> json) {
@@ -24,6 +26,7 @@ class Serie {
      return Serie(
          label: json['label'],
          directoryName: json['directoryName'],
+         stockPath: json['stockPath'],
          seasons: seasons);
    }
 

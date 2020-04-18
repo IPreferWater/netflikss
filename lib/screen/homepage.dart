@@ -52,9 +52,11 @@ class _HomePageState extends State<HomePage> {
       QueryOptions(
           documentNode: gql(""" 
                {
+                 netflikss{
                 	series{
                   label,
-                  directoryName
+                  directoryName,
+                  stockPath
                   seasons{
                     number,
                     label,
@@ -66,6 +68,7 @@ class _HomePageState extends State<HomePage> {
                     }
                   }
                 }
+                }
               }
                       """
           )),
@@ -74,8 +77,12 @@ class _HomePageState extends State<HomePage> {
     if (result.hasException) {
       print(result.exception);
     }else{
-      var seriesJson = result.data["series"];
-      var seriesFromGraph = seriesJson.map((title) => Serie.fromJson(title)).toList().cast<Serie>();
+      print(result.data);
+      var netflikss = result.data["netflikss"];
+      
+      //get series
+      var seriesJson = netflikss["series"];
+      var seriesFromGraph = seriesJson.map((serie) => Serie.fromJson(serie)).toList().cast<Serie>();
       print(seriesFromGraph);
       setState(() { series = seriesFromGraph; });
     }
