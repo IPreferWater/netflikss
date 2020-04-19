@@ -1,22 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:netflikss/widget/video_zone.dart';
 import 'package:video_player/video_player.dart';
-
-/*void main() => runApp(VideoPlayerApp(url));
-
-class VideoPlayerApp extends StatelessWidget {
-
-  final String url;
-  VideoPlayerApp(@required this.url);
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Video Player Demo',
-      home: VideoPlayerScreen(url: url,),
-    );
-  }
-}*/
 
 class VideoPlayerScreen extends StatefulWidget {
 
@@ -34,14 +20,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   @override
   void initState() {
-    // Create and store the VideoPlayerController. The VideoPlayerController
-    // offers several different constructors to play videos from assets, files,
-    // or the internet.
+
     _controller = VideoPlayerController.network(
-      //'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-      //'http://localhost:8080/1080p.mp4'
       'http://localhost:7171/${widget.url}'
-        //'http://localhost:7171/1080p.mp4'
     );
 
     // Initialize the controller and store the Future for later use.
@@ -60,7 +41,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
     super.dispose();
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,16 +54,11 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         future: _initializeVideoPlayerFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            // If the VideoPlayerController has finished initialization, use
-            // the data it provides to limit the aspect ratio of the video.
             return AspectRatio(
               aspectRatio: _controller.value.aspectRatio,
-              // Use the VideoPlayer widget to display the video.
-              child: VideoPlayer(_controller),
+                child: VideoZone(videoPlayerController: _controller,)
             );
           } else {
-            // If the VideoPlayerController is still initializing, show a
-            // loading spinner.
             return Center(child: CircularProgressIndicator());
           }
         },
