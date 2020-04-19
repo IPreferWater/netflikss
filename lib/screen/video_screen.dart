@@ -56,7 +56,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           if (snapshot.connectionState == ConnectionState.done) {
             return AspectRatio(
               aspectRatio: _controller.value.aspectRatio,
-                child: VideoZone(videoPlayerController: _controller,)
+                child: VideoZone(videoController: _controller,)
             );
           } else {
             return Center(child: CircularProgressIndicator());

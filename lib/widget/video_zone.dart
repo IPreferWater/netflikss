@@ -3,9 +3,9 @@ import 'package:video_player/video_player.dart';
 
 class VideoZone extends StatefulWidget {
 
-  final VideoPlayerController videoPlayerController;
+  final VideoPlayerController videoController;
 
-  VideoZone({@required this.videoPlayerController});
+  VideoZone({@required this.videoController});
 
   @override
   _VideoZoneState createState() => _VideoZoneState();
@@ -29,7 +29,7 @@ class _VideoZoneState extends State<VideoZone> {
         onHover: _mouseMoving,
         child: Stack(
             children: <Widget>[
-              VideoPlayer(widget.videoPlayerController),
+              VideoPlayer(widget.videoController),
               Align(
                 alignment:Alignment.bottomCenter,
                 child: Container(
@@ -49,27 +49,29 @@ class _VideoZoneState extends State<VideoZone> {
   Widget _buildMediaControl(){
     return Row(
       children: <Widget>[
-        IconButton(
-          icon: Icon(widget.videoPlayerController.value.isPlaying ? Icons.pause : Icons.play_arrow,),
-          tooltip: 'play',
-          onPressed: () {
-            // Wrap the play or pause in a call to `setState`. This ensures the
-            // correct icon is shown.
-            setState(() {
-              // If the video is playing, pause it.
-              if (widget.videoPlayerController.value.isPlaying) {
-                widget.videoPlayerController.pause();
-              } else {
-                // If the video is paused, play it.
-                widget.videoPlayerController.play();
-              }
-            });
-          },
-        ),
+        _playPauseButton(),
         Text("line bar"),
         Text("timer"),
         Text("fullscreen"),
       ],
+    );
+  }
+
+  Widget _playPauseButton(){
+    return IconButton(
+      icon: Icon(widget.videoController.value.isPlaying ? Icons.pause : Icons.play_arrow,),
+      tooltip: 'play',
+      onPressed: () {
+        // Wrap the play or pause in a call to `setState`. This ensures the
+        // correct icon is shown.
+        setState(() {
+          if (widget.videoController.value.isPlaying) {
+            widget.videoController.pause();
+          } else {
+            widget.videoController.play();
+          }
+        });
+      },
     );
   }
 }
