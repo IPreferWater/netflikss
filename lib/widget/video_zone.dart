@@ -30,12 +30,17 @@ class _VideoZoneState extends State<VideoZone> {
         child: Stack(
             children: <Widget>[
               VideoPlayer(widget.videoPlayerController),
-              Container(
-                color: Colors.redAccent,
-                  height: 100,
-                width: 100,
+              Align(
+                alignment:Alignment.bottomCenter,
+                child: Container(
+                  constraints: BoxConstraints.tightForFinite(
+                    height: 50,
+                  ),
+                  color: Colors.transparent.withOpacity(0.5)
+                ),
               )
-            ]
+            ],
+                overflow: Overflow.visible,
         )
     );
   }

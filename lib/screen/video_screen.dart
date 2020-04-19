@@ -41,7 +41,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
