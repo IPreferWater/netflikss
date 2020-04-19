@@ -36,12 +36,40 @@ class _VideoZoneState extends State<VideoZone> {
                   constraints: BoxConstraints.tightForFinite(
                     height: 50,
                   ),
-                  color: Colors.transparent.withOpacity(0.5)
+                  color: Colors.transparent.withOpacity(0.5),
+                    child :_buildMediaControl()
                 ),
               )
             ],
                 overflow: Overflow.visible,
         )
+    );
+  }
+
+  Widget _buildMediaControl(){
+    return Row(
+      children: <Widget>[
+        IconButton(
+          icon: Icon(widget.videoPlayerController.value.isPlaying ? Icons.pause : Icons.play_arrow,),
+          tooltip: 'play',
+          onPressed: () {
+            // Wrap the play or pause in a call to `setState`. This ensures the
+            // correct icon is shown.
+            setState(() {
+              // If the video is playing, pause it.
+              if (widget.videoPlayerController.value.isPlaying) {
+                widget.videoPlayerController.pause();
+              } else {
+                // If the video is paused, play it.
+                widget.videoPlayerController.play();
+              }
+            });
+          },
+        ),
+        Text("line bar"),
+        Text("timer"),
+        Text("fullscreen"),
+      ],
     );
   }
 }
