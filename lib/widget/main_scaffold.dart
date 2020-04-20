@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netflikss/screen/admin_screen.dart';
+import 'package:netflikss/colors.dart' as Colors;
 
 
 class MainScaffold extends StatefulWidget{
@@ -15,12 +16,6 @@ class MainScaffold extends StatefulWidget{
 }
 class _MainScaffoldState extends State<MainScaffold> {
 
-  Color blueGrey1 = Color(0xff708090);
-  Color blueGrey2 = Color(0xff6D7F80);
-  Color blueGrey3 = Color(0xff536878);
-  Color blueGrey4 = Color(0xff536872);
-  Color blueGrey5 = Color(0xff36454F);
-
   @override
   void initState(){
     super.initState();
@@ -29,10 +24,10 @@ class _MainScaffoldState extends State<MainScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: blueGrey5,
+      backgroundColor: Colors.youtubeBlack,
       appBar: AppBar(
         title: Text('HomePage'),
-        backgroundColor: blueGrey1,
+        backgroundColor: Colors.blueGrey1,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.settings),

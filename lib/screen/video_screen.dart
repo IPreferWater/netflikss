@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:netflikss/widget/video_zone.dart';
 import 'package:video_player/video_player.dart';
+import 'package:netflikss/colors.dart' as Colors;
+
 
 class VideoPlayerScreen extends StatefulWidget {
 
@@ -33,33 +35,30 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   @override
   void dispose() {
-    // Ensure disposing of the VideoPlayerController to free up resources.
     _controller.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Butterfly Video'),
-      ),
-      // Use a FutureBuilder to display a loading spinner while waiting for the
-      // VideoPlayerController to finish initializing.
-      body: FutureBuilder(
-        future: _initializeVideoPlayerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-                child: VideoZone(videoController: _controller,)
-            );
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        },
-      )// This trailing comma makes auto-formatting nicer for build methods.
+    return  Material(
+      color: Colors.youtubeBlack,
+      child: FutureBuilder(
+            future: _initializeVideoPlayerFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                  return Center(
+                    child: AspectRatio(
+
+                      aspectRatio: _controller.value.aspectRatio,
+                        child: VideoZone(videoController: _controller,)
+                    ),
+                  );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
     );
   }
 }

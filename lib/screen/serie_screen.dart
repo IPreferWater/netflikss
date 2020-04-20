@@ -3,6 +3,7 @@ import 'package:netflikss/model/Season.dart';
 import 'package:netflikss/model/Serie.dart';
 import 'package:netflikss/screen/video_screen.dart';
 import 'package:netflikss/widget/episode_card.dart';
+import 'package:netflikss/widget/main_scaffold.dart';
 
 class SerieScreen extends StatefulWidget{
 
@@ -26,12 +27,7 @@ class _SerieScreenState extends State<SerieScreen> {
   @override
   Widget build(BuildContext context) {
     return
-      Scaffold(
-        appBar: AppBar(
-          title: Text('serie'),
-          actions: <Widget>[
-          ],
-        ),
+      MainScaffold(
         body: _creationMenu(),
       );
   }
