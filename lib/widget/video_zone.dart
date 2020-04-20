@@ -79,6 +79,7 @@ class _VideoZoneState extends State<VideoZone> {
 
   Widget _playPauseButton(){
     return IconButton(
+      color: Colors.white,
       icon: Icon(widget.videoController.value.isPlaying ? Icons.pause : Icons.play_arrow,),
       tooltip: 'play',
       onPressed: () {
@@ -99,9 +100,12 @@ class _VideoZoneState extends State<VideoZone> {
 
     return Slider(
       value :position,
+      activeColor: Colors.white,
       onChanged: (newPosition) {
+        //TODO the onChanged is not perfect when we set the position it can go back a little bit
         setState(() {
           widget.videoController.seekTo(Duration(seconds: newPosition.toInt()));
+          position = newPosition;
         });
       },
       min: 0,
