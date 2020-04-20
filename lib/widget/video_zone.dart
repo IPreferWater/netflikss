@@ -32,10 +32,17 @@ class _VideoZoneState extends State<VideoZone> {
   }
 
   startTimer() {
-    timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+    timer = Timer.periodic(const Duration(milliseconds: 1), (timer) {
+      _getDurationFormat();
+      print('is playing ${widget.videoController.value.isPlaying}');
       setState(() {
         position = widget.videoController.value.position.inSeconds.toDouble();
         });
+
+      //is the video finished ?
+      if(!widget.videoController.value.isPlaying){
+        cancelTimer();
+      }
     });
   }
 
@@ -66,13 +73,27 @@ class _VideoZoneState extends State<VideoZone> {
     );
   }
 
+  _getDurationFormat(){
+    //how much hours
+    var hours = position ~/ 3600;
+    var secondsToTransform = position % 3600;
+
+      //how much minutes
+    final int minutes = secondsToTransform  ~/ 60;
+    var seconds = secondsToTransform % 60;
+
+    print('$hours:$minutes:$seconds');
+
+  }
+
   Widget _buildMediaControl(){
     return Row(
       children: <Widget>[
         _playPauseButton(),
         _sliderVideo(),
         Text("timer"),
-        Text("fullscreen"),
+        Text("go back"),
+        _fullScreenButton()
       ],
     );
   }
@@ -110,6 +131,18 @@ class _VideoZoneState extends State<VideoZone> {
       },
       min: 0,
       max: maxSecond,
+    );
+  }
+
+  Widget _fullScreenButton(){
+    return IconButton(
+      color: Colors.white,
+      icon: Icon(Icons.fullscreen),
+      tooltip: 'fullscreen',
+      onPressed: () {
+        //TODO need to make a fullscreen on navigator
+        //SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+      },
     );
   }
 }
