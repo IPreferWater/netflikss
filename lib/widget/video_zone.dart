@@ -16,23 +16,43 @@ class VideoZone extends StatefulWidget {
 
 class _VideoZoneState extends State<VideoZone> {
 
+  bool _showMediaControl;
+  Timer timerMouseActive;
   Timer timer;
 
   @override
   void initState() {
     super.initState();
+    _showMediaControl = false;
   }
 
-  void _mouseMoving(PointerEvent details) {
-    print('the mouse is mooving');
+    _mouseMoving(PointerEvent details) async {
+    if(!_showMediaControl){
+      setState(() {
+        _showMediaControl = true;
+      });
+    }
+
+    //the first time timerMouseActive will be null
+    if(timerMouseActive!=null){
+      if(timerMouseActive.isActive){
+        timerMouseActive.cancel();
+      }
+    }
+
+    timerMouseActive = Timer(Duration(seconds: 3), () {
+      setState(() {
+        _showMediaControl = false;
+      });
+    });
   }
 
   startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       print('is playing ${widget.videoController.value.isPlaying}');
-      setState(() {
-        //refresh state to put the correct slider position
-        });
+
+      //refresh state to put the correct slider position
+      setState(() {});
 
       //is the video finished ?
       if(!widget.videoController.value.isPlaying){
@@ -54,24 +74,32 @@ class _VideoZoneState extends State<VideoZone> {
         child: Stack(
             children: <Widget>[
               VideoPlayer(widget.videoController),
-              Align(
-                alignment:Alignment.topCenter,
-                child: Container(
-                    constraints: BoxConstraints.tightForFinite(
-                      height: 50,
-                    ),
-                    color: Colors.transparent.withOpacity(0.5),
-                    child :_buildTopMediaControl()
+              AnimatedOpacity(
+                opacity: _showMediaControl ? 1.0 : 0.0,
+                duration: Duration(milliseconds: 500),
+                child: Align(
+                  alignment:Alignment.topCenter,
+                  child: Container(
+                      constraints: BoxConstraints.tightForFinite(
+                        height: 50,
+                      ),
+                      color: Colors.transparent.withOpacity(0.5),
+                      child :_buildTopMediaControl()
+                  ),
                 ),
               ),
-              Align(
-                alignment:Alignment.bottomCenter,
-                child: Container(
-                  constraints: BoxConstraints.tightForFinite(
-                    height: 50,
+              AnimatedOpacity(
+                opacity: _showMediaControl ? 1.0 : 0.0,
+                duration: Duration(milliseconds: 500),
+                child: Align(
+                  alignment:Alignment.bottomCenter,
+                  child: Container(
+                      constraints: BoxConstraints.tightForFinite(
+                        height: 50,
+                      ),
+                      color: Colors.transparent.withOpacity(0.5),
+                      child :_buildMediaControl()
                   ),
-                  color: Colors.transparent.withOpacity(0.5),
-                    child :_buildMediaControl()
                 ),
               )
             ],
@@ -94,7 +122,6 @@ class _VideoZoneState extends State<VideoZone> {
     return Row(
       children: <Widget>[
         _backButton(),
-        //_fullScreenButton()
       ],
     );
   }
@@ -149,9 +176,8 @@ class _VideoZoneState extends State<VideoZone> {
       onChanged: (newPosition) {
         //TODO the onChanged is not perfect when we set the position it can go back a little bit
         widget.videoController.seekTo(Duration(seconds: newPosition.toInt()));
-        setState(() {
-          //refresh state to put the correct slider position
-        });
+        //refresh state to put the correct slider position
+        setState(() {});
       },
       min: 0,
       max: widget.videoController.value.duration.inSeconds.toDouble()
