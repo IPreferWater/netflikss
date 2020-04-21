@@ -16,15 +16,11 @@ class VideoZone extends StatefulWidget {
 
 class _VideoZoneState extends State<VideoZone> {
 
-  double maxSecond;
-  double position;
   Timer timer;
 
   @override
   void initState() {
     super.initState();
-    maxSecond = widget.videoController.value.duration.inSeconds.toDouble();
-    position = widget.videoController.value.position.inSeconds.toDouble();
   }
 
   void _mouseMoving(PointerEvent details) {
@@ -32,11 +28,10 @@ class _VideoZoneState extends State<VideoZone> {
   }
 
   startTimer() {
-    timer = Timer.periodic(const Duration(milliseconds: 1), (timer) {
-      _getDurationFormat();
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       print('is playing ${widget.videoController.value.isPlaying}');
       setState(() {
-        position = widget.videoController.value.position.inSeconds.toDouble();
+        //refresh state to put the correct slider position
         });
 
       //is the video finished ?
@@ -73,16 +68,13 @@ class _VideoZoneState extends State<VideoZone> {
     );
   }
 
-  _getDurationFormat(){
-    //how much hours
-    var hours = position ~/ 3600;
-    var secondsToTransform = position % 3600;
+  Widget _getDurationFormat(){
 
-      //how much minutes
-    final int minutes = secondsToTransform  ~/ 60;
-    var seconds = secondsToTransform % 60;
-
-    print('$hours:$minutes:$seconds');
+    var durationBeforeEnd = widget.videoController.value.duration - widget.videoController.value.position;
+    String formatedDuration = durationBeforeEnd.toString().split('.').first.padLeft(8, "0");
+    return Text(formatedDuration,
+      style: TextStyle(color: Colors.white),
+    );
 
   }
 
@@ -91,9 +83,8 @@ class _VideoZoneState extends State<VideoZone> {
       children: <Widget>[
         _playPauseButton(),
         _sliderVideo(),
-        Text("timer"),
-        Text("go back"),
-        _fullScreenButton()
+        _getDurationFormat(),
+        //_fullScreenButton()
       ],
     );
   }
@@ -120,17 +111,17 @@ class _VideoZoneState extends State<VideoZone> {
   Widget _sliderVideo(){
 
     return Slider(
-      value :position,
+      value :widget.videoController.value.position.inSeconds.toDouble(),
       activeColor: Colors.white,
       onChanged: (newPosition) {
         //TODO the onChanged is not perfect when we set the position it can go back a little bit
+        widget.videoController.seekTo(Duration(seconds: newPosition.toInt()));
         setState(() {
-          widget.videoController.seekTo(Duration(seconds: newPosition.toInt()));
-          position = newPosition;
+          //refresh state to put the correct slider position
         });
       },
       min: 0,
-      max: maxSecond,
+      max: widget.videoController.value.duration.inSeconds.toDouble()
     );
   }
 
