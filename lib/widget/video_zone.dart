@@ -18,7 +18,14 @@ class _VideoZoneState extends State<VideoZone> {
 
   bool _showMediaControl;
   Timer timerMouseActive;
-  Timer timer;
+  Timer timerVideo;
+
+  @override
+  void dispose() {
+    super.dispose();
+    cancelTimer(timerMouseActive);
+    cancelTimer(timerVideo);
+  }
 
   @override
   void initState() {
@@ -33,12 +40,7 @@ class _VideoZoneState extends State<VideoZone> {
       });
     }
 
-    //the first time timerMouseActive will be null
-    if(timerMouseActive!=null){
-      if(timerMouseActive.isActive){
-        timerMouseActive.cancel();
-      }
-    }
+    cancelTimer(timerMouseActive);
 
     timerMouseActive = Timer(Duration(seconds: 3), () {
       setState(() {
@@ -48,23 +50,25 @@ class _VideoZoneState extends State<VideoZone> {
   }
 
   startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      print('is playing ${widget.videoController.value.isPlaying}');
-
+    timerVideo = Timer.periodic(const Duration(seconds: 1), (timer) {
       //refresh state to put the correct slider position
       setState(() {});
 
       //is the video finished ?
       if(!widget.videoController.value.isPlaying){
-        cancelTimer();
+        cancelTimer(timerVideo);
       }
     });
   }
 
-  cancelTimer() {
-    if(timer != null){
-      timer.cancel();
+  cancelTimer(Timer timer) {
+    if(timer == null){
+      return;
     }
+    if(!timer.isActive){
+      return;
+    }
+    timer.cancel();
   }
 
   @override
@@ -74,6 +78,7 @@ class _VideoZoneState extends State<VideoZone> {
         child: Stack(
             children: <Widget>[
               VideoPlayer(widget.videoController),
+              //TODO: we need to capsule the two widget in a single one
               AnimatedOpacity(
                 opacity: _showMediaControl ? 1.0 : 0.0,
                 duration: Duration(milliseconds: 500),
@@ -109,13 +114,11 @@ class _VideoZoneState extends State<VideoZone> {
   }
 
   Widget _getDurationFormat(){
-
     var durationBeforeEnd = widget.videoController.value.duration - widget.videoController.value.position;
     String formatedDuration = durationBeforeEnd.toString().split('.').first.padLeft(8, "0");
     return Text(formatedDuration,
       style: TextStyle(color: Colors.white),
     );
-
   }
 
   Widget _buildTopMediaControl(){
@@ -132,7 +135,7 @@ class _VideoZoneState extends State<VideoZone> {
       icon: Icon(Icons.arrow_back),
       tooltip: 'back',
       onPressed: () {
-        cancelTimer();
+        cancelTimer(timerVideo);
         Navigator.pop(context);
       },
     );
@@ -157,7 +160,7 @@ class _VideoZoneState extends State<VideoZone> {
       onPressed: () {
         setState(() {
           if (widget.videoController.value.isPlaying) {
-            cancelTimer();
+            cancelTimer(timerVideo);
             widget.videoController.pause();
           } else {
             startTimer();
