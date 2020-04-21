@@ -42,7 +42,9 @@ class _VideoZoneState extends State<VideoZone> {
   }
 
   cancelTimer() {
-    timer.cancel();
+    if(timer != null){
+      timer.cancel();
+    }
   }
 
   @override
@@ -52,6 +54,16 @@ class _VideoZoneState extends State<VideoZone> {
         child: Stack(
             children: <Widget>[
               VideoPlayer(widget.videoController),
+              Align(
+                alignment:Alignment.topCenter,
+                child: Container(
+                    constraints: BoxConstraints.tightForFinite(
+                      height: 50,
+                    ),
+                    color: Colors.transparent.withOpacity(0.5),
+                    child :_buildTopMediaControl()
+                ),
+              ),
               Align(
                 alignment:Alignment.bottomCenter,
                 child: Container(
@@ -76,6 +88,27 @@ class _VideoZoneState extends State<VideoZone> {
       style: TextStyle(color: Colors.white),
     );
 
+  }
+
+  Widget _buildTopMediaControl(){
+    return Row(
+      children: <Widget>[
+        _backButton(),
+        //_fullScreenButton()
+      ],
+    );
+  }
+
+  Widget _backButton(){
+    return IconButton(
+      color: Colors.white,
+      icon: Icon(Icons.arrow_back),
+      tooltip: 'back',
+      onPressed: () {
+        cancelTimer();
+        Navigator.pop(context);
+      },
+    );
   }
 
   Widget _buildMediaControl(){
