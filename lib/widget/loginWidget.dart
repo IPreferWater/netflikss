@@ -7,7 +7,6 @@ class SignUpForm extends StatefulWidget {
   _SignUpFormState createState() => _SignUpFormState();
 }
 
-
 class _SignUpFormState extends State<SignUpForm>
     with SingleTickerProviderStateMixin {
   bool _formCompleted = false;
@@ -19,11 +18,10 @@ class _SignUpFormState extends State<SignUpForm>
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     void _showWelcomeScreen() {
-     /* Navigator.of(context)
+      /* Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => VideoPlayerApp()));*/
     }
 
@@ -32,8 +30,9 @@ class _SignUpFormState extends State<SignUpForm>
       children: [
         SignUpFormBody(
           onProgressChanged: (progress) {
-            setState(() {                          // NEW
-              _formCompleted = progress == 1;      // NEW
+            setState(() {
+              // NEW
+              _formCompleted = progress == 1; // NEW
             });
           },
         ),
@@ -47,14 +46,11 @@ class _SignUpFormState extends State<SignUpForm>
               onPressed: _formCompleted ? _showWelcomeScreen : null,
               //onPressed: _testGraphQl,
               child: Text('Sign up'),
-            )
-        ),
+            )),
       ],
     );
   }
 }
-
-
 
 class SignUpFormBody extends StatefulWidget {
   final ValueChanged<double> onProgressChanged;
@@ -71,8 +67,7 @@ class _SignUpFormBodyState extends State<SignUpFormBody> {
   static const EdgeInsets padding = EdgeInsets.all(8);
   final TextEditingController emailController = TextEditingController();
 
-  List<TextEditingController> get controllers =>
-      [emailController];
+  List<TextEditingController> get controllers => [emailController];
 
   @override
   void initState() {

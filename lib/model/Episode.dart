@@ -11,11 +11,7 @@ class Episode {
         number = json['number'];
 
   Map<String, dynamic> toJson() =>
-      {
-        'label': label,
-        'fileName': fileName,
-        'number': number
-      };
+      {'label': label, 'fileName': fileName, 'number': number};
 
   @override
   String toString() {

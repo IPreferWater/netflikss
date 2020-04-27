@@ -5,17 +5,15 @@ import 'package:netflikss/screen/serie_screen.dart';
 import 'package:netflikss/widget/card_serie.dart';
 import 'package:netflikss/widget/main_scaffold.dart';
 
-class HomePage extends StatefulWidget{
-
+class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
-
 }
-class _HomePageState extends State<HomePage> {
 
+class _HomePageState extends State<HomePage> {
   List<Serie> series;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     series = [];
     _testGraphQl();
@@ -23,21 +21,19 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return
-        MainScaffold(
-          body: _homePageBody(),
-        );
+    return MainScaffold(
+      body: _homePageBody(),
+    );
   }
 
   Widget _homePageBody() {
     return GridView.count(
       crossAxisCount: 2,
-       children: series.map((serie) {
-
-          return Center(
-            child: CardSerie(serie: serie, onTap: navigateToSerieScreen),
-          );
-       }).toList(),
+      children: series.map((serie) {
+        return Center(
+          child: CardSerie(serie: serie, onTap: navigateToSerieScreen),
+        );
+      }).toList(),
     );
   }
 
@@ -49,8 +45,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
     QueryResult result = await client.query(
-      QueryOptions(
-          documentNode: gql(""" 
+      QueryOptions(documentNode: gql(""" 
                {
                  netflikss{
     configuration{fileServerPath,stockPath,
@@ -68,28 +63,29 @@ class _HomePageState extends State<HomePage> {
     }
   }
               }
-                      """
-          )),
-
+                      """)),
     );
     if (result.hasException) {
       print(result.exception);
-    }else{
-
+    } else {
       var netflikss = result.data["netflikss"];
 
       var seriesJson = netflikss["series"];
       print(seriesJson);
 
-      var seriesFromGraph = seriesJson.map((serie) => Serie.fromJson(serie)).toList().cast<Serie>();
-      setState(() { series = seriesFromGraph; });
+      var seriesFromGraph = seriesJson
+          .map((serie) => Serie.fromJson(serie))
+          .toList()
+          .cast<Serie>();
+      setState(() {
+        series = seriesFromGraph;
+      });
     }
   }
 
-  navigateToSerieScreen(Serie serie){
+  navigateToSerieScreen(Serie serie) {
     print("naviguate");
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => SerieScreen(serie: serie))
-    );
+        MaterialPageRoute(builder: (context) => SerieScreen(serie: serie)));
   }
 }

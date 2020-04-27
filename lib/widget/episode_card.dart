@@ -2,25 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:netflikss/model/Episode.dart';
 import 'package:netflikss/model/Serie.dart';
 
-
-class EpisodeCard extends StatefulWidget{
-
+class EpisodeCard extends StatefulWidget {
   final Episode episode;
   final void Function(String url) onTap;
 
-
-  EpisodeCard({
-    @required this.episode,
-    @required this.onTap
-  });
+  EpisodeCard({@required this.episode, @required this.onTap});
 
   _EpisodeCardState createState() => _EpisodeCardState();
-
 }
-class _EpisodeCardState extends State<EpisodeCard> {
 
+class _EpisodeCardState extends State<EpisodeCard> {
   @override
-  void initState(){
+  void initState() {
     super.initState();
   }
 
@@ -37,7 +30,7 @@ class _EpisodeCardState extends State<EpisodeCard> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-               ListTile(
+              ListTile(
                 title: Text(episode.label),
                 subtitle: Text('quick description?'),
               ),

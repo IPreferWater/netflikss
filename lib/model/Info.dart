@@ -5,7 +5,7 @@ class Info {
   String img;
   String type;
 
-  Info(this.directory, this.label, this.stockPath, this.img , this.type);
+  Info(this.directory, this.label, this.stockPath, this.img, this.type);
 
   Info.fromJson(Map<String, dynamic> json)
       : directory = json['directory'],
@@ -14,8 +14,7 @@ class Info {
         img = json['img'],
         type = json['type'];
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         'directory': directory,
         'label': label,
         'stockPath': stockPath,

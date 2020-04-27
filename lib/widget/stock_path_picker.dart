@@ -3,26 +3,23 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class StockPathPicker extends StatefulWidget{
-
+class StockPathPicker extends StatefulWidget {
   _StockPathPickerState createState() => _StockPathPickerState();
-
 }
-class _StockPathPickerState extends State<StockPathPicker> {
 
+class _StockPathPickerState extends State<StockPathPicker> {
   String stockPath;
   List<String> directories;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     getStockPath();
   }
 
   @override
   Widget build(BuildContext context) {
-
-    if(stockPath==null){
+    if (stockPath == null) {
       return Text("error api");
     }
     return Column(
@@ -31,9 +28,7 @@ class _StockPathPickerState extends State<StockPathPicker> {
       children: [
         Container(
             height: MediaQuery.of(context).size.height * 0.1,
-            child: Text(stockPath.isNotEmpty
-                ? stockPath : "racine" )
-        ),
+            child: Text(stockPath.isNotEmpty ? stockPath : "racine")),
         Container(
             height: MediaQuery.of(context).size.height * 0.1,
             child: Row(
@@ -60,29 +55,25 @@ class _StockPathPickerState extends State<StockPathPicker> {
                   ),
                 ),
               ],
-            )
-        ),
+            )),
         Container(
             height: MediaQuery.of(context).size.height * 0.7,
-            child : ListView.builder(
-                    padding: const EdgeInsets.all(8),
-                    itemCount: directories.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
-                        child: Container(
-                          height: 50,
-                          color: Colors.amber,
-                          child: Center(child: Text('${directories[index]}')),
-                        ),
-                        onTap: (){
-                          stockPath = '$stockPath/${directories[index]}';
-                          getDirectoriesList();
-                        },
-                      );
-                    }
-                )
-
-        )
+            child: ListView.builder(
+                padding: const EdgeInsets.all(8),
+                itemCount: directories.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                    child: Container(
+                      height: 50,
+                      color: Colors.amber,
+                      child: Center(child: Text('${directories[index]}')),
+                    ),
+                    onTap: () {
+                      stockPath = '$stockPath/${directories[index]}';
+                      getDirectoriesList();
+                    },
+                  );
+                }))
       ],
     );
   }
@@ -96,24 +87,24 @@ class _StockPathPickerState extends State<StockPathPicker> {
   }
 
   getDirectoriesList() async {
-    final response = await http.post(
-        'http://localhost:7171/directorieslist',
+    final response = await http.post('http://localhost:7171/directorieslist',
         body: stockPath);
 
     if (response.statusCode == 200) {
-      var jsonMap = json.decode(response.body );
+      var jsonMap = json.decode(response.body);
       var directoriesMapped = jsonMap.map((j) => j).toList().cast<String>();
 
-      setState(() { directories = directoriesMapped; });
+      setState(() {
+        directories = directoriesMapped;
+      });
     }
   }
 
   updateStockPath() async {
     print("$stockPath is selected");
-    final response = await http.post(
-        'http://localhost:7171/stockpath',
+    final response = await http.post('http://localhost:7171/stockpath',
         headers: {"Content-Type": "application/json"},
-        body: jsonEncode({"stockPath" : stockPath}));
+        body: jsonEncode({"stockPath": stockPath}));
 
     if (response.statusCode == 200) {
       print("ok");

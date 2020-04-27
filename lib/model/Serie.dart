@@ -4,36 +4,29 @@ import 'Info.dart';
 
 class Serie {
   Info info;
-   List<Season> seasons;
+  List<Season> seasons;
 
-  Serie({
-      this.info,
-      this.seasons});
+  Serie({this.info, this.seasons});
 
-   static Serie fromJson(Map<String, dynamic> json) {
-
+  static Serie fromJson(Map<String, dynamic> json) {
     var seasonsJson = json['seasons'];
     List<Season> seasons;
-    if(seasonsJson != null){
-      seasons = seasonsJson.map((season) => Season.fromJson(season)).toList().cast<Season>();
-    }else{
-
-      seasons=[];
+    if (seasonsJson != null) {
+      seasons = seasonsJson
+          .map((season) => Season.fromJson(season))
+          .toList()
+          .cast<Season>();
+    } else {
+      seasons = [];
     }
 
-     return Serie(
-         info: Info.fromJson(json['info']),
-         seasons: seasons);
-   }
+    return Serie(info: Info.fromJson(json['info']), seasons: seasons);
+  }
 
-   Map<String, dynamic> toJson() =>
-       {
-         'info': info.toJson(),
-         'seasons': seasons
-       };
+  Map<String, dynamic> toJson() => {'info': info.toJson(), 'seasons': seasons};
 
-   @override
-   String toString() {
-     return ' Serie { info : $info, seasons : $seasons }';
-   }
+  @override
+  String toString() {
+    return ' Serie { info : $info, seasons : $seasons }';
+  }
 }

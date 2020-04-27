@@ -17,11 +17,10 @@ class MyApp extends StatelessWidget {
 }
 
 class SignUpScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return HomePage();
-   /* return Center(
+    /* return Center(
       child: SizedBox(
         width: 400,
         child: Card(

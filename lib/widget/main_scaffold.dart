@@ -2,22 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:netflikss/screen/admin_screen.dart';
 import 'package:netflikss/colors.dart' as Colors;
 
-
-class MainScaffold extends StatefulWidget{
-
+class MainScaffold extends StatefulWidget {
   final Widget body;
 
-  MainScaffold({
-    @required this.body
-  });
+  MainScaffold({@required this.body});
 
   _MainScaffoldState createState() => _MainScaffoldState();
-
 }
-class _MainScaffoldState extends State<MainScaffold> {
 
+class _MainScaffoldState extends State<MainScaffold> {
   @override
-  void initState(){
+  void initState() {
     super.initState();
   }
 
