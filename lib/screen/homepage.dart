@@ -53,23 +53,20 @@ class _HomePageState extends State<HomePage> {
           documentNode: gql(""" 
                {
                  netflikss{
-                	series{
-                  label,
-                  directoryName,
-                  img,
-                  stockPath
-                  seasons{
-                    number,
-                    label,
-                    directoryName
-                    episodes{
-                      label,
-                    number,
-                     fileName 
-                    }
-                  }
-                }
-                }
+    configuration{fileServerPath,stockPath,
+      serverConfiguration{port,allowedOrigin}
+    },
+    movies{
+      info{directory,label,stockPath,img,type},
+      fileName
+    },
+      	series{
+      info{directory,label,stockPath,img,type},
+      seasons{number,label, directoryName,
+        episodes{label,number,fileName}
+      }
+    }
+  }
               }
                       """
           )),
@@ -78,13 +75,13 @@ class _HomePageState extends State<HomePage> {
     if (result.hasException) {
       print(result.exception);
     }else{
-      print(result.data);
+
       var netflikss = result.data["netflikss"];
 
-      //get series
       var seriesJson = netflikss["series"];
+      print(seriesJson);
+
       var seriesFromGraph = seriesJson.map((serie) => Serie.fromJson(serie)).toList().cast<Serie>();
-      print(seriesFromGraph);
       setState(() { series = seriesFromGraph; });
     }
   }

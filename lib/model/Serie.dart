@@ -22,7 +22,7 @@ class Serie {
     }
 
      return Serie(
-         info: Info.fromJson(json['label']),
+         info: Info.fromJson(json['info']),
          seasons: seasons);
    }
 
