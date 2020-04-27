@@ -56,7 +56,7 @@ class _SerieScreenState extends State<SerieScreen> {
   }
 
   navigateToVideoPlayer(String url){
-    String path = "${widget.serie.stockPath}/${widget.serie.directoryName}/${seasonSelected.directoryName}/$url";
+    String path = "${widget.serie.info.stockPath}/${widget.serie.info.directory}/${seasonSelected.directoryName}/$url";
     print(path);
 
     Navigator.of(context)

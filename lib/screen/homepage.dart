@@ -56,6 +56,7 @@ class _HomePageState extends State<HomePage> {
                 	series{
                   label,
                   directoryName,
+                  img,
                   stockPath
                   seasons{
                     number,

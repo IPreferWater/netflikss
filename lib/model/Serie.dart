@@ -1,15 +1,13 @@
 import 'package:netflikss/model/Season.dart';
 
+import 'Info.dart';
+
 class Serie {
-   String label;
-   String directoryName;
-   String stockPath;
+  Info info;
    List<Season> seasons;
 
   Serie({
-      this.label,
-      this.directoryName,
-      this.stockPath,
+      this.info,
       this.seasons});
 
    static Serie fromJson(Map<String, dynamic> json) {
@@ -24,21 +22,18 @@ class Serie {
     }
 
      return Serie(
-         label: json['label'],
-         directoryName: json['directoryName'],
-         stockPath: json['stockPath'],
+         info: Info.fromJson(json['label']),
          seasons: seasons);
    }
 
    Map<String, dynamic> toJson() =>
        {
-         'label': label,
-         'directoryName': directoryName,
+         'info': info.toJson(),
          'seasons': seasons
        };
 
    @override
    String toString() {
-     return ' Serie { label : $label, directoryName : $directoryName, seasons : $seasons }';
+     return ' Serie { info : $info, seasons : $seasons }';
    }
 }
