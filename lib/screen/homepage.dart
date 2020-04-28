@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:netflikss/model/Movie.dart';
 import 'package:netflikss/model/Serie.dart';
-import 'package:netflikss/model/Wrap.dart';
+import 'package:netflikss/model/wrap_netflikss.dart';
 import 'package:netflikss/screen/serie_screen.dart';
 import 'package:netflikss/screen/video_screen.dart';
 import 'package:netflikss/widget/card_netflikss.dart';
@@ -13,9 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   List wrapNetflikss;
-
 
   @override
   void initState() {
@@ -36,7 +34,8 @@ class _HomePageState extends State<HomePage> {
       crossAxisCount: 2,
       children: wrapNetflikss.map((wrap) {
         return Center(
-          child: CardNetflikss(wrapNetflikss: wrap, onTap: navigateToSerieScreen),
+          child:
+              CardNetflikss(wrapNetflikss: wrap, onTap: navigateToSerieScreen),
         );
       }).toList(),
     );
@@ -96,17 +95,17 @@ class _HomePageState extends State<HomePage> {
 
   navigateToSerieScreen(WrapNetflikss wrapNetflikss) {
     if (wrapNetflikss is Serie) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => SerieScreen(serie: wrapNetflikss)));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SerieScreen(serie: wrapNetflikss)));
     }
 
-    if(wrapNetflikss is Movie) {
-          String url =
-        "${wrapNetflikss.info.stockPath}/${wrapNetflikss.info.directory}/${wrapNetflikss.fileName}";
+    if (wrapNetflikss is Movie) {
+      String url = wrapNetflikss.buildUrl(wrapNetflikss.fileName);
 
-    Navigator.of(context).push(
+      Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => VideoPlayerScreen(url: url)));
     }
-
   }
 }

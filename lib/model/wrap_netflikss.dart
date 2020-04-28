@@ -1,6 +1,6 @@
 import 'Info.dart';
 
- class WrapNetflikss {
+abstract class WrapNetflikss {
   Info info;
 
   WrapNetflikss({this.info});
@@ -8,5 +8,9 @@ import 'Info.dart';
   @override
   String toString() {
     return ' Wrap { info : $info}';
+  }
+
+  String buildUrl(String fileName) {
+    return "${info.stockPath}/${info.directory}/$fileName";
   }
 }

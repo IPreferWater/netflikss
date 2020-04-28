@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:netflikss/model/Wrap.dart';
+import 'package:netflikss/model/wrap_netflikss.dart';
 
 class CardNetflikss extends StatefulWidget {
   final WrapNetflikss wrapNetflikss;
   final void Function(WrapNetflikss wrapNetflikss) onTap;
 
-  CardNetflikss({ @required this.wrapNetflikss, @required this.onTap});
+  CardNetflikss({@required this.wrapNetflikss, @required this.onTap});
 
   _CardState createState() => _CardState();
 }
@@ -22,7 +22,6 @@ class _CardState extends State<CardNetflikss> {
 
   @override
   Widget build(BuildContext context) {
-    //Serie serie = widget.wrapNetflikss;
     return Center(
       child: InkWell(
         onTap: () {

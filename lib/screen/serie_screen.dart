@@ -47,10 +47,9 @@ class _SerieScreenState extends State<SerieScreen> {
     );
   }
 
-  navigateToVideoPlayer(String url) {
+  navigateToVideoPlayer(String fileName) {
     String path =
-        "${widget.serie.info.stockPath}/${widget.serie.info.directory}/${seasonSelected.directoryName}/$url";
-    print(path);
+        widget.serie.buildUrl('${seasonSelected.directoryName}/$fileName');
 
     Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => VideoPlayerScreen(url: path)));
