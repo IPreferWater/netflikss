@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
       var netflikss = result.data["netflikss"];
 
       var seriesJson = netflikss["series"];
-      print(seriesJson);
+      var moviesJson = netflikss["movies"];
 
       var seriesFromGraph = seriesJson
           .map((serie) => Serie.fromJson(serie))
