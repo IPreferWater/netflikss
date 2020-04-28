@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:netflikss/model/Serie.dart';
 import 'package:netflikss/screen/serie_screen.dart';
-import 'package:netflikss/widget/card_serie.dart';
+import 'package:netflikss/widget/card_netflikss.dart';
 import 'package:netflikss/widget/main_scaffold.dart';
 
 class HomePage extends StatefulWidget {
