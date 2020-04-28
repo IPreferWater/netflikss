@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
+import 'package:netflikss/model/Movie.dart';
 import 'package:netflikss/model/Serie.dart';
+import 'package:netflikss/model/Wrap.dart';
 import 'package:netflikss/screen/serie_screen.dart';
 import 'package:netflikss/widget/card_netflikss.dart';
 import 'package:netflikss/widget/main_scaffold.dart';
@@ -31,7 +33,7 @@ class _HomePageState extends State<HomePage> {
       crossAxisCount: 2,
       children: series.map((serie) {
         return Center(
-          child: CardNetflikss(serie: serie, onTap: navigateToSerieScreen),
+          child: CardNetflikss(wrapNetflikss: serie, onTap: navigateToSerieScreen),
         );
       }).toList(),
     );
@@ -83,9 +85,15 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  navigateToSerieScreen(Serie serie) {
-    print("naviguate");
+  navigateToSerieScreen(WrapNetflikss wrapNetflikss) {
+    if (wrapNetflikss is Serie) {
+      print("it's serie!");
+    }
+
+    if(wrapNetflikss is Movie) {
+      print("it's movie!");
+    }
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => SerieScreen(serie: serie)));
+        MaterialPageRoute(builder: (context) => SerieScreen(serie: wrapNetflikss)));
   }
 }

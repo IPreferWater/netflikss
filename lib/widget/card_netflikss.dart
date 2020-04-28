@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:netflikss/model/Serie.dart';
+import 'package:netflikss/model/Wrap.dart';
 
 class CardNetflikss extends StatefulWidget {
-  final Serie serie;
+  final WrapNetflikss wrapNetflikss;
   final void Function(Serie serie) onTap;
 
-  CardNetflikss({@required this.serie, @required this.onTap});
+  CardNetflikss({ @required this.wrapNetflikss, @required this.onTap});
 
   _CardState createState() => _CardState();
 }
@@ -17,16 +18,16 @@ class _CardState extends State<CardNetflikss> {
   void initState() {
     super.initState();
     imgPath =
-        'http://localhost:7171/${widget.serie.info.stockPath}/${widget.serie.info.directory}/${widget.serie.info.img}';
+        'http://localhost:7171/${widget.wrapNetflikss.info.stockPath}/${widget.wrapNetflikss.info.directory}/${widget.wrapNetflikss.info.img}';
   }
 
   @override
   Widget build(BuildContext context) {
-    Serie serie = widget.serie;
+    //Serie serie = widget.wrapNetflikss;
     return Center(
       child: InkWell(
         onTap: () {
-          widget.onTap(widget.serie);
+          widget.onTap(widget.wrapNetflikss);
         },
         child: Card(
           child: Container(
@@ -38,7 +39,7 @@ class _CardState extends State<CardNetflikss> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 ListTile(
-                  title: Text(serie.info.label),
+                  title: Text(widget.wrapNetflikss.info.label),
                   subtitle: Text('quick description?'),
                 ),
                 ButtonBar(

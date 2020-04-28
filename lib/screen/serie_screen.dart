@@ -6,7 +6,7 @@ import 'package:netflikss/widget/episode_card.dart';
 import 'package:netflikss/widget/main_scaffold.dart';
 
 class SerieScreen extends StatefulWidget {
-  Serie serie;
+  final Serie serie;
 
   SerieScreen({@required this.serie});
 
