@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
       crossAxisCount: 2,
       children: series.map((serie) {
         return Center(
-          child: CardSerie(serie: serie, onTap: navigateToSerieScreen),
+          child: CardNetflikss(serie: serie, onTap: navigateToSerieScreen),
         );
       }).toList(),
     );

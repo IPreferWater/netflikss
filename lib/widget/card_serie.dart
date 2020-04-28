@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:netflikss/model/Serie.dart';
 
-class CardSerie extends StatefulWidget {
+class CardNetflikss extends StatefulWidget {
   final Serie serie;
   final void Function(Serie serie) onTap;
 
-  CardSerie({@required this.serie, @required this.onTap});
+  CardNetflikss({@required this.serie, @required this.onTap});
 
   _CardState createState() => _CardState();
 }
 
-class _CardState extends State<CardSerie> {
+class _CardState extends State<CardNetflikss> {
   String imgPath;
 
   @override
