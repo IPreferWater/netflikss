@@ -1,11 +1,12 @@
 
 import 'Info.dart';
+import 'Wrap.dart';
 
-class Movie {
+class Movie extends WrapNetflikss {
   Info info;
   String fileName;
 
-  Movie({this.info, this.fileName});
+  Movie({this.info, this.fileName}) : super(info : info);
 
   static Movie fromJson(Map<String, dynamic> json) {
 

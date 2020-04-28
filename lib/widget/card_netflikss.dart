@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:netflikss/model/Serie.dart';
 import 'package:netflikss/model/Wrap.dart';
 
 class CardNetflikss extends StatefulWidget {
   final WrapNetflikss wrapNetflikss;
-  final void Function(Serie serie) onTap;
+  final void Function(WrapNetflikss wrapNetflikss) onTap;
 
   CardNetflikss({ @required this.wrapNetflikss, @required this.onTap});
 

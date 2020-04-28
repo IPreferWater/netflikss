@@ -4,6 +4,7 @@ import 'package:netflikss/model/Movie.dart';
 import 'package:netflikss/model/Serie.dart';
 import 'package:netflikss/model/Wrap.dart';
 import 'package:netflikss/screen/serie_screen.dart';
+import 'package:netflikss/screen/video_screen.dart';
 import 'package:netflikss/widget/card_netflikss.dart';
 import 'package:netflikss/widget/main_scaffold.dart';
 
@@ -12,12 +13,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Serie> series;
+
+  List wrapNetflikss;
+
 
   @override
   void initState() {
     super.initState();
-    series = [];
+    wrapNetflikss = [];
     _testGraphQl();
   }
 
@@ -31,9 +34,9 @@ class _HomePageState extends State<HomePage> {
   Widget _homePageBody() {
     return GridView.count(
       crossAxisCount: 2,
-      children: series.map((serie) {
+      children: wrapNetflikss.map((wrap) {
         return Center(
-          child: CardNetflikss(wrapNetflikss: serie, onTap: navigateToSerieScreen),
+          child: CardNetflikss(wrapNetflikss: wrap, onTap: navigateToSerieScreen),
         );
       }).toList(),
     );
@@ -75,25 +78,35 @@ class _HomePageState extends State<HomePage> {
       var seriesJson = netflikss["series"];
       var moviesJson = netflikss["movies"];
 
-      var seriesFromGraph = seriesJson
+      var seriesFromJson = seriesJson
           .map((serie) => Serie.fromJson(serie))
           .toList()
           .cast<Serie>();
+
+      var moviesFromJson = moviesJson
+          .map((movie) => Movie.fromJson(movie))
+          .toList()
+          .cast<Movie>();
       setState(() {
-        series = seriesFromGraph;
+        wrapNetflikss.addAll(seriesFromJson);
+        wrapNetflikss.addAll(moviesFromJson);
       });
     }
   }
 
   navigateToSerieScreen(WrapNetflikss wrapNetflikss) {
     if (wrapNetflikss is Serie) {
-      print("it's serie!");
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => SerieScreen(serie: wrapNetflikss)));
     }
 
     if(wrapNetflikss is Movie) {
-      print("it's movie!");
+          String url =
+        "${wrapNetflikss.info.stockPath}/${wrapNetflikss.info.directory}/${wrapNetflikss.fileName}";
+
+    Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => VideoPlayerScreen(url: url)));
     }
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => SerieScreen(serie: wrapNetflikss)));
+
   }
 }
