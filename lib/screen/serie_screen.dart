@@ -15,7 +15,6 @@ class SerieScreen extends StatefulWidget {
 
 class _SerieScreenState extends State<SerieScreen> {
   Season seasonSelected;
-  //String dropdownValue = 'One';
 
   @override
   void initState() {
@@ -32,7 +31,7 @@ class _SerieScreenState extends State<SerieScreen> {
 
   Widget _creationMenu() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DropdownButton<Season>(
           value: seasonSelected,
