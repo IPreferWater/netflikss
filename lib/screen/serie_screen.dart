@@ -15,6 +15,7 @@ class SerieScreen extends StatefulWidget {
 
 class _SerieScreenState extends State<SerieScreen> {
   Season seasonSelected;
+  //String dropdownValue = 'One';
 
   @override
   void initState() {
@@ -33,7 +34,25 @@ class _SerieScreenState extends State<SerieScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Expanded(child: Text("fffff")),
+        DropdownButton<Season>(
+          value: seasonSelected,
+          icon: Icon(Icons.arrow_downward),
+          iconSize: 24,
+          elevation: 16,
+          style: TextStyle(color: Colors.deepPurple),
+          onChanged: (Season seasonChanged) {
+            setState(() {
+              seasonSelected = seasonChanged;
+            });
+          },
+          items: widget.serie.seasons
+              .map<DropdownMenuItem<Season>>((Season value) {
+            return DropdownMenuItem<Season>(
+              value: value,
+              child: Text(value.label),
+            );
+          }).toList(),
+        ),
         Expanded(
             child: GridView.count(
           crossAxisCount: 3,
