@@ -30,14 +30,18 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _homePageBody() {
-    return GridView.count(
-      crossAxisCount: 2,
-      children: wrapNetflikss.map((wrap) {
-        return Center(
-          child:
-              CardNetflikss(wrapNetflikss: wrap, onTap: navigateToSerieScreen),
-        );
-      }).toList(),
+    return Padding(
+      padding: EdgeInsets.all(8),
+      child: GridView.count(
+        crossAxisCount: 3,
+        crossAxisSpacing: 0,
+        mainAxisSpacing: 8,
+        childAspectRatio: 5 / 2,
+        children: wrapNetflikss.map((wrap) {
+          return CardNetflikss(
+              wrapNetflikss: wrap, onTap: navigateToSerieScreen);
+        }).toList(),
+      ),
     );
   }
 

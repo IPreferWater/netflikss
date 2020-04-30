@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:netflikss/model/wrap_netflikss.dart';
 
@@ -22,36 +24,33 @@ class _CardState extends State<CardNetflikss> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: InkWell(
-        onTap: () {
-          widget.onTap(widget.wrapNetflikss);
-        },
-        child: Card(
-          child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(imgPath), fit: BoxFit.cover),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                ListTile(
-                  title: Text(widget.wrapNetflikss.info.label),
-                  subtitle: Text('quick description?'),
+    return InkWell(
+      onTap: () {
+        widget.onTap(widget.wrapNetflikss);
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: NetworkImage(imgPath), fit: BoxFit.cover),
+          ),
+          child: Stack(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Container(
+                  color: Colors.black.withOpacity(0.25),
+                  child: Container(
+                    margin: EdgeInsets.only(left: 8, right: 2),
+                    child: Text(widget.wrapNetflikss.info.label,
+                        style: TextStyle(color: Colors.white, fontSize: 20)),
+                  ),
                 ),
-                ButtonBar(
-                  children: <Widget>[
-                    FlatButton(
-                      child: const Text('todo see more'),
-                      onPressed: () {
-                        print("todo want to see more");
-                      },
-                    )
-                  ],
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
