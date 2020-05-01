@@ -52,15 +52,19 @@ class _SerieScreenState extends State<SerieScreen> {
             );
           }).toList(),
         ),
-        Expanded(
-            child: GridView.count(
-          crossAxisCount: 3,
-          children: seasonSelected.episodes.map((episode) {
-            return Center(
-                child: EpisodeCard(
-                    episode: episode, onTap: navigateToVideoPlayer));
-          }).toList(),
-        ))
+        Container(
+            margin: EdgeInsets.symmetric(vertical: 20.0),
+            height: 160,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: seasonSelected.episodes.map((episode) {
+                return Container(
+                  width: 160.0,
+                  child: EpisodeCard(
+                      episode: episode, onTap: navigateToVideoPlayer),
+                );
+              }).toList(),
+            ))
       ],
     );
   }

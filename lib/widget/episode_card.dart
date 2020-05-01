@@ -20,34 +20,46 @@ class _EpisodeCardState extends State<EpisodeCard> {
   @override
   Widget build(BuildContext context) {
     Episode episode = widget.episode;
-    return Center(
-      child: InkWell(
-        onTap: () {
-          print("read episode $episode");
-          widget.onTap(episode.fileName);
-        },
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                title: Text(episode.label),
-                subtitle: Text('quick description?'),
-              ),
-              ButtonBar(
-                children: <Widget>[
-                  FlatButton(
-                    child: const Text('todo see more'),
-                    onPressed: () {
-                      print("todo want to see more");
-                    },
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+    return InkWell(
+      onTap: () {
+        widget.onTap(episode.fileName);
+      },
+      child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [Colors.green[900], Colors.orange[600]])),
+            child: Stack(
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    color: Colors.black.withOpacity(0.25),
+                    child: Container(
+                      margin: EdgeInsets.only(left: 8, right: 2),
+                      child: Text(widget.episode.label,
+                          style: TextStyle(color: Colors.white, fontSize: 20)),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                    color: Colors.black.withOpacity(0.25),
+                    child: Container(
+                      margin: EdgeInsets.only(left: 8, right: 2),
+                      child: Text(widget.episode.number.toString(),
+                          style: TextStyle(color: Colors.white, fontSize: 20)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )),
     );
   }
 }
