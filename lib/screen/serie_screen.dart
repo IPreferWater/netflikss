@@ -33,24 +33,29 @@ class _SerieScreenState extends State<SerieScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DropdownButton<Season>(
-          value: seasonSelected,
-          icon: Icon(Icons.arrow_downward),
-          iconSize: 24,
-          elevation: 16,
-          style: TextStyle(color: Colors.deepPurple),
-          onChanged: (Season seasonChanged) {
-            setState(() {
-              seasonSelected = seasonChanged;
-            });
-          },
-          items: widget.serie.seasons
-              .map<DropdownMenuItem<Season>>((Season value) {
-            return DropdownMenuItem<Season>(
-              value: value,
-              child: Text(value.label),
-            );
-          }).toList(),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(width: 3)
+          ),
+          child: DropdownButton<Season>(
+            value: seasonSelected,
+            icon: Icon(Icons.arrow_downward),
+            iconSize: 24,
+            elevation: 16,
+            style: TextStyle(color: Colors.white),
+            onChanged: (Season seasonChanged) {
+              setState(() {
+                seasonSelected = seasonChanged;
+              });
+            },
+            items: widget.serie.seasons
+                .map<DropdownMenuItem<Season>>((Season value) {
+              return DropdownMenuItem<Season>(
+                value: value,
+                child: Text(value.label)
+              );
+            }).toList(),
+          ),
         ),
         Container(
             margin: EdgeInsets.symmetric(vertical: 20.0),

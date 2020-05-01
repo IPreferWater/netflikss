@@ -18,22 +18,24 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.youtubeBlack,
-      appBar: AppBar(
-        title: Text('HomePage'),
-        backgroundColor: Colors.blueGrey1,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => AdminScreen()));
-            },
-          )
-        ],
+    return MaterialApp(
+      theme: new ThemeData(canvasColor: Colors.youtubeBlack),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('HomePage'),
+          backgroundColor: Colors.blueGrey1,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => AdminScreen()));
+              },
+            )
+          ],
+        ),
+        body: widget.body,
       ),
-      body: widget.body,
     );
   }
 }

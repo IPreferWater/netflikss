@@ -32,7 +32,7 @@ class _EpisodeCardState extends State<EpisodeCard> {
                 gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
-                    colors: [Colors.green[900], Colors.orange[600]])),
+                    colors: [Colors.green[900], Colors.white])),
             child: Stack(
               children: <Widget>[
                 Align(
