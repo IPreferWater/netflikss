@@ -25,36 +25,36 @@ class _SerieScreenState extends State<SerieScreen> {
   @override
   Widget build(BuildContext context) {
     return MainScaffold(
-      body: _creationMenu(),
+      body: _buildSerieScreen(),
     );
   }
 
-  Widget _creationMenu() {
+  Widget _buildSerieScreen() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          decoration: BoxDecoration(
-            border: Border.all(width: 3)
-          ),
-          child: DropdownButton<Season>(
-            value: seasonSelected,
-            icon: Icon(Icons.arrow_downward),
-            iconSize: 24,
-            elevation: 16,
-            style: TextStyle(color: Colors.white),
-            onChanged: (Season seasonChanged) {
-              setState(() {
-                seasonSelected = seasonChanged;
-              });
-            },
-            items: widget.serie.seasons
-                .map<DropdownMenuItem<Season>>((Season value) {
-              return DropdownMenuItem<Season>(
-                value: value,
-                child: Text(value.label)
-              );
-            }).toList(),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<Season>(
+              value: seasonSelected,
+              icon: Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: TextStyle(color: Colors.white),
+              onChanged: (Season seasonChanged) {
+                setState(() {
+                  seasonSelected = seasonChanged;
+                });
+              },
+              items: widget.serie.seasons
+                  .map<DropdownMenuItem<Season>>((Season value) {
+                return DropdownMenuItem<Season>(
+                    value: value,
+                    child: Text(
+                      value.label,
+                    ));
+              }).toList(),
+            ),
           ),
         ),
         Container(

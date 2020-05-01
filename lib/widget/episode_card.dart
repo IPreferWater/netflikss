@@ -36,7 +36,7 @@ class _EpisodeCardState extends State<EpisodeCard> {
             child: Stack(
               children: <Widget>[
                 Align(
-                  alignment: Alignment.center,
+                  alignment: Alignment.bottomLeft,
                   child: Container(
                     color: Colors.black.withOpacity(0.25),
                     child: Container(
