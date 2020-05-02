@@ -33,29 +33,42 @@ class _SerieScreenState extends State<SerieScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<Season>(
-              value: seasonSelected,
-              icon: Icon(Icons.arrow_downward),
-              iconSize: 24,
-              elevation: 16,
-              style: TextStyle(color: Colors.white),
-              onChanged: (Season seasonChanged) {
-                setState(() {
-                  seasonSelected = seasonChanged;
-                });
-              },
-              items: widget.serie.seasons
-                  .map<DropdownMenuItem<Season>>((Season value) {
-                return DropdownMenuItem<Season>(
-                    value: value,
-                    child: Text(
-                      value.label,
-                    ));
-              }).toList(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<Season>(
+                  value: seasonSelected,
+                  icon: Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: TextStyle(color: Colors.white),
+                  onChanged: (Season seasonChanged) {
+                    setState(() {
+                      seasonSelected = seasonChanged;
+                    });
+                  },
+                  items: widget.serie.seasons
+                      .map<DropdownMenuItem<Season>>((Season value) {
+                    return DropdownMenuItem<Season>(
+                        value: value,
+                        child: Text(
+                          value.label,
+                        ));
+                  }).toList(),
+                ),
+              ),
             ),
-          ),
+            IconButton(
+              color: Colors.white,
+              icon: Icon(Icons.arrow_back),
+              tooltip: 'back',
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
         ),
         Container(
             margin: EdgeInsets.symmetric(vertical: 20.0),
