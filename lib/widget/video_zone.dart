@@ -90,17 +90,21 @@ class _VideoZoneState extends State<VideoZone> {
                     child: _buildTopMediaControl()),
               ),
             ),
-            AnimatedOpacity(
-              opacity: _showMediaControl ? 1.0 : 0.0,
-              duration: Duration(milliseconds: 500),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                    constraints: BoxConstraints.tightForFinite(
-                      height: 50,
-                    ),
-                    color: Colors.transparent.withOpacity(0.5),
-                    child: _buildMediaControl()),
+            //TODO: the inkwell is triggerable only on the last widget inserted in stack, it could be better if the first widget VideoPlayer was wrapped by this inkWell
+            InkWell(
+              onTap: () => triggerPlayPause(),
+              child: AnimatedOpacity(
+                opacity: _showMediaControl ? 1.0 : 0.0,
+                duration: Duration(milliseconds: 500),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                      constraints: BoxConstraints.tightForFinite(
+                        height: 50,
+                      ),
+                      color: Colors.transparent.withOpacity(0.5),
+                      child: _buildMediaControl()),
+                ),
               ),
             )
           ],
@@ -150,25 +154,26 @@ class _VideoZoneState extends State<VideoZone> {
     );
   }
 
+  void triggerPlayPause() {
+    if (widget.videoController.value.isPlaying) {
+      cancelTimer(timerVideo);
+      widget.videoController.pause();
+    } else {
+      startTimer();
+      widget.videoController.play();
+    }
+  }
+
   Widget _playPauseButton() {
     return IconButton(
-      color: Colors.white,
-      icon: Icon(
-        widget.videoController.value.isPlaying ? Icons.pause : Icons.play_arrow,
-      ),
-      tooltip: 'play',
-      onPressed: () {
-        setState(() {
-          if (widget.videoController.value.isPlaying) {
-            cancelTimer(timerVideo);
-            widget.videoController.pause();
-          } else {
-            startTimer();
-            widget.videoController.play();
-          }
-        });
-      },
-    );
+        color: Colors.white,
+        icon: Icon(
+          widget.videoController.value.isPlaying
+              ? Icons.pause
+              : Icons.play_arrow,
+        ),
+        tooltip: 'play',
+        onPressed: () => triggerPlayPause());
   }
 
   Widget _sliderVideo() {
