@@ -76,34 +76,32 @@ class _VideoZoneState extends State<VideoZone> {
         child: Stack(
           children: <Widget>[
             VideoPlayer(widget.videoController),
-            //TODO: we need to capsule the two widget in a single one
             AnimatedOpacity(
               opacity: _showMediaControl ? 1.0 : 0.0,
               duration: Duration(milliseconds: 500),
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                    constraints: BoxConstraints.tightForFinite(
-                      height: 50,
-                    ),
-                    color: Colors.transparent.withOpacity(0.5),
-                    child: _buildTopMediaControl()),
-              ),
-            ),
-            //TODO: the inkwell is triggerable only on the last widget inserted in stack, it could be better if the first widget VideoPlayer was wrapped by this inkWell
-            InkWell(
-              onTap: () => triggerPlayPause(),
-              child: AnimatedOpacity(
-                opacity: _showMediaControl ? 1.0 : 0.0,
-                duration: Duration(milliseconds: 500),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                      constraints: BoxConstraints.tightForFinite(
-                        height: 50,
+              child: InkWell(
+                onTap: () => triggerPlayPause(),
+                child: Stack(
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Container(
+                            constraints: BoxConstraints.tightForFinite(
+                              height: 50,
+                            ),
+                            color: Colors.transparent.withOpacity(0.5),
+                            child: _buildTopMediaControl()),
                       ),
-                      color: Colors.transparent.withOpacity(0.5),
-                      child: _buildMediaControl()),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                            constraints: BoxConstraints.tightForFinite(
+                              height: 50,
+                            ),
+                            color: Colors.transparent.withOpacity(0.5),
+                            child: _buildMediaControl()),
+                      )
+                    ]
                 ),
               ),
             )
